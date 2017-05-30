@@ -1,0 +1,22 @@
+[begin]
+  [shade]
+  [stick]
+  [maximize]
+  [maximizevertical] (maximize Vert)
+  [maximizehorizontal] (maximize Horiz)
+  [iconify]
+  [raise]
+  [lower]
+
+  ### CAREFUL -- unless you have a created a "ToggleDecor" keybind,
+  ### you'll need to use `pkill` or `xkill` or fbcommand to close the window
+  #[setdecor Border] (undecorate)
+
+  [settitledialog]
+  [sendto]
+  [layer]
+  [alpha]
+  [extramenus]
+  [separator]
+  [close]
+[end]

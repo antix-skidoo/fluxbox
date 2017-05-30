@@ -1,0 +1,419 @@
+<!DOCTYPE html><html lang="en">
+<head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style type="text/css">code{white-space: pre;} a{text-decoration:none;} body{background-color:#efcf9f;}</style>
+<!--
+
+
+#[commanddialog] (Fluxbox Command)
+#   NO POINT EXPOSING THIS UNTIL WE HAVE DOCUMENTED HOW IT IS USEFUL
+		I have seen this present in in-the-wild menus, but it is _NOT_ documented.
+		It's not "fbrun" AFAIK ~~
+		ref:     src/FbCommands.cc:REGISTER_COMMAND(commanddialog, FbCommands::CommandDialogCmd, void);
+		  That fn is called for only about 23 commands within FbCommands.cc, but 100+ commands are available,
+		  per  `fluxbox -list-commands`
+		What would be useful here?   deiconify (all?),
+		 setresourcevalue? toggeldecor       macrocmd?   arrangewindows?   togglecmd?      unclutter?
+
+		"togglecmd"  is entirely absent from the docs
+
+		"toggledecor" is pointless within commmanddialog (acts on the epehmeral dialog window)
+
+
+   BUG/QUIRK:  arrangewindows command sees/arranges gcalendar desktop widget (does not disturb conky thoug)
+
+-->
+</head>
+<body>
+<div style="width:720px">
+
+
+
+<h1>fluxbox-menu(5) Manual Page</h1>
+
+<h2>NAME</h2>
+<p>fluxbox-menu -   fluxbox(1) menu syntax</p>
+
+<h2>SYNOPSIS</h2>
+<p>/usr/local/share/menu</p>
+<p>~/.fluxbox/menu</p>
+<p>~/.fluxbox/windowmenu</p>
+
+
+<h2>SYNTAX</h2>
+<p>Variable parameters are shown in emphasis: <em>argument</em></p>
+<p>All other characters shown are required verbatim. Whitespace is only required to delimit words, but it is fine to add more whitespace.</p>
+
+
+<h2>DESCRIPTION</h2>
+
+<p>There are two types of menus in fluxbox which can be configured.</p>
+<p>The first is the root menu, which normally appears when you right-click on the
+desktop.</p>
+<p>The first is the <b>ROOT MENU</b> (Or right-click menu), is usually bound to a
+right-click on the desktop, though this binding can be changed in the ‘keys’
+file (<b>fluxbox-keys(5)</b>). This same syntax is used for the <b>CustomMenu</b> command,
+also mentioned in <b>fluxbox-keys(5)</b>.</p>
+<p>Fluxbox installs a default root menu file in <b>/usr/local/share/menu</b>. You can also
+use fluxbox -i to confirm this location. Of course this system-wide menu can be
+customized for all users at once, but it is also possible to create an
+individual menu file for each user. By convention, users create a menu file in
+<b>~/.fluxbox/menu</b>. Once you’ve created your own menu file, you’ll want to make
+sure that you properly declare this location in your ‘init’ file so that fluxbox
+knows where to look. See <b>RESOURCES</b>, below for details.</p>
+<p>The second type is the <b>WINDOW MENU</b>, which defines the contents of the menu
+which appears when you right-click on a window’s titlebar or iconbar. This opens
+a menu file as defined by <b>~/.fluxbox/windowmenu</b>. If this file does not exist,
+fluxbox will copy in the default from <b>/usr/local/share/windowmenu</b>.</p>
+<p>You do not need to “reload” fluxbox after editing the apps file, the changes
+should be taken into account the next time you open the menu.</p>
+
+
+
+<h2>ROOT MENU</h2>
+
+<p>The root menu must begin with a <b>[begin]</b> tag and end with an <b>[end]</b> tag, and
+every tag must be on its own line.</p>
+<dl>
+<dt>There are up to four fields in a menu line. They are of the form</dt>
+<dd>
+<p>    [<em>tag</em>] (<em>label</em>) {<em>command</em>} &lt;'icon'&gt;</p>
+</dd>
+</dl>
+<p>The &lt;'icon'&gt; field is always optional when shown below. If specified, the <em>icon</em>
+will be scaled down and displayed in the menu alongside the text label of the
+item. It must be in .xpm or .png format.</p>
+<p>Any line that starts with a <em>#</em> or <em>!</em> is considered a comment and ignored by
+fluxbox. Also, in the label/command/filename fields you can escape any
+character. Using <em>\\</em> inserts a literal back-slash into the
+label/command/filename field.</p>
+<p>You may enter labels, commands, and icons using characters from any <b>iconv(1)</b>
+language/locale by specifying the encoding used via the <b>[encoding]</b> tag,
+detailed below.</p>
+
+<h3>Structural Tags</h3>
+<dl>
+<dt><b>[begin]</b> (<em>title</em>)</dt>
+<dd>
+<p>    This tells fluxbox to start parsing the menu file. This tag is required for
+    fluxbox to read your menu file. If it cannot find it, the system default menu
+    is used in its place. The <em>title</em> appears at the top of the menu. And <b>[end]</b>
+    tag is required to end the menu.</p>
+</dd>
+<dt><b>[submenu]</b> (<em>label</em>) {<em>title</em>} &lt;'icon'&gt;</dt>
+<dd>
+<p>    This tells fluxbox to create and parse a new menu, which is inserted as a
+    submenu into the parent menu. These menus are parsed recursively, so there is
+    no limit to the number of levels or nested submenus you can have. The <em>label</em>
+    is the text that will appear in the parent menu, and the <em>title</em> is shown at
+    the top of the submenu.  If omitted, the <em>title</em> will be the same as the
+    <em>label</em>.  An <b>[end]</b> tag is required to end the submenu.</p>
+</dd>
+<dt><b>[end]</b></dt>
+<dd>
+<p>    This tells fluxbox that it is at the end of a menu. This can either be a
+    <b>[submenu]</b> or the <b>[begin]</b> tag of the main root menu. There must be at
+    least one of these tags in your menu to correspond to the required <b>[begin]</b>
+    tag, and one for each <b>[submenu]</b>.</p>
+</dd>
+<dt><b>[encoding]</b> {<em>encoding</em>}</dt>
+<dd>
+<p>    This begins an <b>[encoding]</b> section and specifies the string encoding of
+    all strings until the matching <b>[endencoding]</b> tag. For a list of available
+    encodings on your system, run <b>iconv -l</b>.</p>
+</dd>
+<dt><b>[endencoding]</b></dt>
+<dd>
+<p>    This ends an <b>[encoding]</b> section.</p>
+</dd>
+<dt><b>[include]</b> (<em>path</em>)</dt>
+<dd>
+<p>    Parses the file specified by filename inline with the current menu. The
+    <em>path</em> can be the full path to a file or it can begin with <b>~/</b>, which will
+    be expanded into your home directory. If <em>path</em> is a directory, then all
+    files in that directory are included.</p>
+</dd>
+<dt><b>[separator]</b></dt>
+<dd>
+<p>    This will create a nice separation line. Useful for splitting up sections in
+    a “pretty” way. The optional <em>comment</em> is not displayed, but can be useful
+    for internal documentation or script parsing of menu files.</p>
+</dd>
+<dt><b>[nop]</b> (<em>label</em>) &lt;'icon'&gt;</dt>
+<dd>
+<p>    Insert a non-operational item into the current menu. This is much like
+    <b>[separator]</b>, but instead of a line, it inserts a <em>label</em>. This can be used
+    to help format the menu into blocks or sections if so desired. The <em>label</em> is
+    optional, and if omitted a blank item will be inserted.</p>
+</dd>
+</dl>
+
+
+<h3>Applications</h3>
+<dl>
+<dt><b>[exec]</b> (<em>label</em>) {<em>command…</em>} &lt;'icon'&gt;</dt>
+<dd>
+<p>    Inserts a command item into the menu. When you select the menu item from the
+    menu, fluxbox runs <em>command…</em> in your <b>$SHELL</b> (or /bin/sh if $SHELL is not
+    set). You can use this to launch applications, run shell scripts, etc. Since
+    all arguments are passed verbatim to the shell, you can use environment
+    variables, pipes, or anything else the shell can do. Note that processes only
+    see environment variables that were set before fluxbox started (such as in
+    ~/.fluxbox/startup).</p>
+</dd>
+</dl>
+
+
+<h3>Fluxbox Functions</h3>
+<dl>
+<dt><b>[config]</b> (<em>label</em>) &lt;'icon'&gt;</dt>
+<dd>
+<p>    Inserts a fluxbox native submenu item, containing numerous configuration
+    options concerning window placement, focus style, window moving style, etc.
+    See <b>Configuration Menu</b> in <b>fluxbox(1)</b> for details.</p>
+</dd>
+<dt><b>[reconfig]</b> (<em>label</em>) &lt;'icon'&gt;</dt>
+<dd>
+<p>    When selected this item re-reads the current style and menu files and applies
+    any changes. This is useful for creating a new style or theme, as you don’t
+    have to constantly restart fluxbox every time you save your style.  However,
+    fluxbox automatically rereads the menu whenever it changes.</p>
+</dd>
+<dt><b>[restart]</b> (<em>label</em>) {<em>command</em>} &lt;'icon'&gt;</dt>
+<dd>
+<p>    This tells fluxbox to restart. If <em>command</em> is supplied, it shuts down and
+    runs the command (which is commonly the name of another window manager). If
+    <em>command</em> is omitted, fluxbox restarts itself.</p>
+</dd>
+<dt><b>[exit]</b> (<em>label</em>) &lt;'icon'&gt;</dt>
+<dd>
+<p>    Inserts an item that shuts down and exits fluxbox. Any open windows are
+    reparented to the root window before fluxbox exits.</p>
+</dd>
+<dt><b>[style]</b> (<em>label</em>) {<em>filename</em>} &lt;'icon'&gt;</dt>
+<dd>
+<p>    This tells fluxbox to insert an item that, when selected, reads style file
+    named filename and apply the new textures, colors and fonts to the current
+    running session.</p>
+</dd>
+<dt><b>[stylesmenu]</b> (<em>directory</em>) &lt;'icon'&gt;</dt>
+<dd>
+<p>    Reads all filenames from the specified directory, assuming that they are all
+    valid style files, and creates inline menu items in the current menu for
+    every filename, that, when selected by the user will apply the selected style
+    file to the current session. The labels that are created in the menu are the
+    filenames of the style files.</p>
+</dd>
+<dt><b>[stylesdir]</b> (<em>label</em>) {<em>directory</em>} &lt;'icon'&gt;</dt>
+<dd>
+<p>    Creates a submenu entry with <em>label</em> (that is also the title of the new
+    submenu), and inserts in that submenu all filenames in the specified
+    <em>directory</em>, assuming that they are all valid style files (directories are
+    ignored) in the same way as the <b>[stylesdir]</b> command does. Both
+    <b>[stylesdir]</b> and <b>[stylesmenu]</b> commands make it possible to install style
+    files without editing your init file.</p>
+</dd>
+<dt><b>[wallpapers]</b> (<em>directory</em>) {<em>command</em>} &lt;'icon'&gt;</dt>
+<dd>
+<p>    This inserts a menu item to set the wallpaper for each file in the given
+    directory. The <em>command</em> is optional, and defaults to <b>fbsetbg</b>.</p>
+</dd>
+<dt><b>[workspaces]</b> (<em>label</em>) &lt;'icon'&gt;</dt>
+<dd>
+<p>    This tells fluxbox to insert a link to the workspaces menu directly into your
+    menu. See <b>Workspace Menu</b> in <b>fluxbox(1)</b> for details.</p>
+</dd>
+<dt><b>[</b><em>command</em><b>]</b> (<em>label</em>) &lt;'icon'&gt;</dt>
+<dd>
+<p>    In addition to the commands above, any legal keys file <em>command</em> may be used
+    as a menu item. See <b>fluxbox-keys(5)</b> for more information.</p>
+</dd>
+</dl>
+
+
+
+
+<h2>WINDOW MENU</h2>
+
+<p>Like the <b>ROOT MENU</b>, this menu file must start with <b>[begin]</b> and end with
+<b>[end]</b>. However, this file consists of only one <b>[</b><em>tag</em><b>]</b> per line with no
+labels, commands, or icons.</p>
+<p>The available tags in this menu are:</p>
+<dl>
+<dt><b>[shade]</b></dt>
+<dd>
+<p>    Provides a menu item to shade or unshade (or, roll-up) the window. This is
+    equivalent to the shade titlebar button.</p>
+</dd>
+<dt><b>[stick]</b></dt>
+<dd>
+<p>    Provides a menu item to stick or unstick the window. Stuck windows are
+    displayed on all workspaces. This is equivalent to the stick titlebar button.</p>
+</dd>
+<dt><b>[maximize]</b></dt>
+<dd>
+<p>    Provides a menu item to maximize or unmaximize the window, equivalent to the
+    maximize titlebar button. The button with which you click alters the
+    behaviour of this item as follows:</p>
+<ul>
+<li>
+<p>Button 1  (Un)Maximize as normal.</p>
+</li>
+<li>
+<p>Button 2  (Un)Maximize window vertically.</p>
+</li>
+<li>
+<p>Button 3  (Un)Maximize window horizontally.</p>
+</li>
+</ul>
+</dd>
+<dt><b>[iconify]</b></dt>
+<dd>
+<p>    Provides a menu item to iconify (or, minimize) the window, equivalent to the
+    iconify titlebar button.</p>
+</dd>
+<dt><b>[close]</b></dt>
+<dd>
+<p>    Closes the window gracefully, equivalent to the titlebar button.</p>
+</dd>
+<dt><b>[kill]</b></dt>
+<dd>
+<p>    Kills the window’s process, like <b>xkill(1)</b>.</p>
+</dd>
+<dt><b>[raise]</b></dt>
+<dd>
+<p>    Raise the window to the top of the stack within its layer.</p>
+</dd>
+<dt><b>[lower]</b></dt>
+<dd>
+<p>    Lower the window to the bottom of the stack within its layer.</p>
+</dd>
+<dt><b>[settitledialog]</b></dt>
+<dd>
+<p>    Opens a dialog which can be used to set the window’s title. Some applications
+    may re-set their own title from time-to-time, wiping out your setting.</p>
+</dd>
+<dt><b>[sendto]</b></dt>
+<dd>
+<p>    Sends the window to a different workspace. When you select the workspace with
+    a middle-click, fluxbox will also change to the new workspace. A regular
+    click only sends the window.</p>
+</dd>
+<dt><b>[layer]</b></dt>
+<dd>
+<p>    Adds a “Layer…” submenu which lets you change the layer of this window.</p>
+</dd>
+<dt><b>[alpha]</b></dt>
+<dd>
+<p>    Adds a “Transparency…” submenu which lets you change the focused and
+    unfocused transparency of this window.</p>
+</dd>
+<dt><b>[extramenus]</b></dt>
+<dd>
+<p>    Adds the “Remember…” menu item, which allows you to specify which
+    settings should be stored in the ‘apps’ file (See <b>fluxbox-apps(5)</b> for more
+    details).</p>
+</dd>
+<dt><b>[separator]</b></dt>
+<dd><p>    Adds a horizontal line to the menu</p></dd>
+</dl>
+
+
+
+<h2>FILES</h2>
+<dl>
+<dt><b>~/.fluxbox/menu</b></dt>
+<dd>
+<p>    This is the default location for the user’s root menu.</p>
+</dd>
+<dt><b>/usr/local/share/menu</b></dt>
+<dd>
+<p>    This is the system-wide root menu file. It will be used if the user’s root
+    menu is missing or unparseable.</p>
+</dd>
+<dt><b>~/.fluxbox/windowmenu</b></dt>
+<dd>
+<p>    This is the user’s window menu definition file</p>
+</dd>
+<dt><b>/usr/local/share/menu</b></dt>
+<dd>
+<p>    This is the default window menu. If the user does not have this file, it will
+    be copied to <b>~/.fluxbox/windowmenu</b> on fluxbox startup.</p>
+</dd>
+</dl>
+
+
+
+<h2>RESOURCES</h2>
+<dl>
+<dt><b>session.menuFile:</b> <em>location</em></dt>
+<dd><p>    This may be set to override the location of the user’s root menu.</p></dd>
+</dl>
+
+
+
+<h2>ENVIRONMENT</h2>
+<p>The <em>comand…</em> field of the <b>[exec]</b> tag can take advantage of other
+environment variables if they are set before fluxbox is started.</p>
+
+<h2>EXAMPLES</h2>
+Root Menu
+
+<pre><code># fluxbox menu file
+[begin] (fluxbox)
+    [exec] (rxvt) {rxvt -ls} &lt;/usr/X11R6/share/icons/terminal.xpm&gt;
+    [exec] (netscape) {netscape -install}
+    [exec] (The GIMP) {gimp}
+    [exec] (XV) {xv}
+    [exec] (Vim) {rxvt -geometry 132x60 -name VIM -e screen vim}
+    [exec] (Mutt) {rxvt -name mutt -e mutt}
+    [submenu] (mozilla)
+        [exec] (browser) {mozilla -browser}
+        [exec] (news) {mozilla -news}
+        [exec] (mail) {mozilla -mail}
+        [exec] (edit) {mozilla -edit}
+        [exec] (compose) {mozilla -compose}
+    [end]
+    [submenu] (Window Manager)
+        [exec] (Edit Menus) {nedit ~/.fluxbox/menu}
+        [submenu] (Style) {Which Style?}
+            [stylesdir] (~/.fluxbox/styles)
+            [stylesmenu] (fluxbox Styles) {/usr/local/share/styles}
+        [end]
+        [config] (Config Options)
+        [reconfig] (Reconfigure)
+        [restart] (Restart)
+    [end]
+    [exit] (Log Out)
+[end]</code></pre>
+
+
+Default Window Menu
+
+<pre><code>[begin]
+  [shade]
+  [stick]
+  [maximize]
+  [iconify]
+  [raise]
+  [lower]
+  [settitledialog]
+  [sendto]
+  [layer]
+  [alpha]
+  [extramenus]
+  [separator]
+  [close]
+[end]</code></pre>
+
+
+
+
+<hr>
+<h2>SEE ALSO</h2>
+<p>fluxbox(1) fluxbox-keys(5) fluxbox-apps(5) xkill(1) iconv(1)</p>
+
+
+
+</div></body></html>

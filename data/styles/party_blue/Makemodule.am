@@ -1,0 +1,3 @@
+party_blue_styledir = $(pkgdatadir)/styles/party_blue
+
+dist_party_blue_style_DATA = data/styles/party_blue/theme.cfg

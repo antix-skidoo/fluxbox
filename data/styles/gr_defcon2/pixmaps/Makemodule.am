@@ -1,0 +1,33 @@
+gr_defcon2_pixmaps_styledir = $(pkgdatadir)/styles/gr_defcon2/pixmaps
+
+dist_gr_defcon2_pixmaps_style_DATA = \
+		data/styles/gr_defcon2/pixmaps/bullet.xpm \
+		data/styles/gr_defcon2/pixmaps/closefcs.xpm \
+		data/styles/gr_defcon2/pixmaps/closepr.xpm \
+		data/styles/gr_defcon2/pixmaps/closeufcs.xpm \
+		data/styles/gr_defcon2/pixmaps/frame.xpm \
+		data/styles/gr_defcon2/pixmaps/gfx.xcf \
+		data/styles/gr_defcon2/pixmaps/maxfcs.xpm \
+		data/styles/gr_defcon2/pixmaps/maxpr.xpm \
+		data/styles/gr_defcon2/pixmaps/maxufcs.xpm \
+		data/styles/gr_defcon2/pixmaps/menuiconfcs.xpm \
+		data/styles/gr_defcon2/pixmaps/menuiconpr.xpm \
+		data/styles/gr_defcon2/pixmaps/menuiconufcs.xpm \
+		data/styles/gr_defcon2/pixmaps/minfcs.xpm \
+		data/styles/gr_defcon2/pixmaps/minpr.xpm \
+		data/styles/gr_defcon2/pixmaps/minufcs.xpm \
+		data/styles/gr_defcon2/pixmaps/selected.xpm \
+		data/styles/gr_defcon2/pixmaps/shadefcs.xpm \
+		data/styles/gr_defcon2/pixmaps/shadepr.xpm \
+		data/styles/gr_defcon2/pixmaps/shadeufcs.xpm \
+		data/styles/gr_defcon2/pixmaps/stickfcs.xpm \
+		data/styles/gr_defcon2/pixmaps/stickpr.xpm \
+		data/styles/gr_defcon2/pixmaps/stickufcs.xpm \
+		data/styles/gr_defcon2/pixmaps/stuckfcs.xpm \
+		data/styles/gr_defcon2/pixmaps/stuckufcs.xpm \
+		data/styles/gr_defcon2/pixmaps/tbarfcs.xpm \
+		data/styles/gr_defcon2/pixmaps/tbarufcs.xpm \
+		data/styles/gr_defcon2/pixmaps/unselected.xpm \
+		data/styles/gr_defcon2/pixmaps/unshadefcs.xpm \
+		data/styles/gr_defcon2/pixmaps/unshadepr.xpm \
+		data/styles/gr_defcon2/pixmaps/unshadeufcs.xpm

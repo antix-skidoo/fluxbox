@@ -1,0 +1,1087 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">code{white-space: pre;} a{text-decoration:none;} body{background-color:#cfefcf;}</style>
+
+<!--            http://fluxbox.org/help/man-fluxbox-keys.php
+                How up-to-date is it?    HOWABOUT the similar page at fluxbox-wiki.org ?
+-->
+
+</head>
+<body><div style="width:720px">
+
+
+<div style="border:1px solid black; padding-left:12px;">
+<pre><b>How to use the keys file</b>
+
+The keys file default location is ~/.fluxbox/keys.
+Its content can be edited with any text editor.
+After editing, select "Reload config" from the menu for your changes to take effect.
+As an alternative, you can bind a key to <b>Reconfigure</b> as described below.
+(note: by default, the antiX fluxbox menu already contains a Reconfigure button)
+
+The syntax for specifying a keybinding is:
+    &lt;mod> [ &lt;mod> &lt;mod> ] key [key key] :command &lt;command_options>
+
+&lt;mod> is what we call a "modifier" and you can use 'xmodmap -pm' from the commandline
+to see what modifiers are available. Typical modifiers to be use in the keys file are:
+      Mod1    == Alt
+      Mod4    == Windows key
+      Control == Ctrl
+      Shift   == Shift
+
+<!-- if you   dont want to press any "modifier" then use 'None'   -->
+<!--   i read ubuntu topic wherein the dev advised    "nowdays, just OMIT 'None'    -->
+If you want to find out the name of a key, open a terminal and run 'xev'.
+When the "Event Tester" window has focus, it will capture mouse movement, mouse clicks, and
+keypress events, then provide output in the terminal.
+If a key you want to use has no name, you can use its keycode and Fluxbox will still understand.
+
+Here are a few examples:
+    Control i :ExecCommand xterm    <i> # Ctrl+i will bring up an xterm </i>
+    Mod4 4 :Workspace 4             <i> # Windowskey+4 will change to workspace 4 </i>
+    None F12 :ExecCommand firefox   <i> # F12 will start Firefox </i>
+    Control Mod1 r :exec fbrun      <i> # Ctrl+Alt+r will bring up the Fluxbox command dialog </i>
+    Mod1 Shift F4 :KillWindow       <i> # Alt+Shift+F4 kills the focused window </i>
+    Mod1 113 :exec xterm            <i> # Just to show the keycode usage </i>
+<!--
+      if you set a variable like XTERM to a sane value like "xterm" before fluxbox launches, fluxbox would use that
+      variable in the :ExecCommand. Within this keys file, you can use the <b>:Export or :Setenv</b> command to change
+      that variable on the fly... ( e.g. to "urxvt" or "aterm" )
+-->
+A basic, common command is <b>ExecCommand</b>, or <b>Exec</b> if you like it shorter.
+You can execute apps, scripts (take care of $PATH), set things via 'xset' and so on with it.
+
+<b>Some things to know</b>
+    Commands are case-insensitive
+    Workspace numbering starts at 1
+    Some commands have synonyms
+    The space between the last key and the "<b>:</b>" is <b>mandatory</b><pre>
+</div>
+
+
+
+
+
+
+<pre>
+<b>fluxbox-keys(5) Manual Page</b>
+
+<b>NAME</b>
+    fluxbox-keys -   keyboard shortcuts configuration for fluxbox(1)
+
+<b>SYNOPSIS</b>
+    ~/.fluxbox/keys
+
+<b>SYNTAX</b>
+
+    Variable parameters are shown in emphasis: <em>argument</em>
+
+    Optional parameters are shown in square brackets: [<em>argument</em>]
+
+    All other characters shown are required verbatim.
+    Whitespace is required where shown, but it is fine to add more whitespace.
+<hr>
+
+<b>DESCRIPTION</b>
+
+The content of the keys file defines the keyboard shortcuts for fluxbox
+
+You can customize fluxbox’s key handling through the ~/.fluxbox/keys file.
+The file consists of lines of the basic format:
+
+    <b>[<em>modifiers</em>] <em>key</em> :'command' [<em>arguments</em> <em>...</em>]</b>
+
+The space between the <em>key</em> and the <b>:</b> before the <em>command</em> is mandatory.
+
+All modifiers and commands are case-insensitive. Some command arguments
+(especially those that will be passed to the shell) are case-sensitive. Some key names are case-sensitive.
+
+Lines beginning with a <em>#</em> or <em>!</em> are considered comments and are ignored by fluxbox.
+
+After editing the keys file, you will need to “reload” fluxbox so that it picks up your change.
+<hr>
+
+<b>MODIFIERS</b>
+
+You can get a list of possible modifiers by calling ‘xmodmap -pm’.
+This also shows you to which keys the modifiers are mapped, but the following modifiers are most commonly used:
+    <b>Shift Control Mod1 Mod4</b>
+where <b>Mod1</b> is the Alt key on the PC keyboard and <b>Mod4</b> is usually a key branded with a familiar company logo.
+
+There are also some special modifiers that refer to mouse button events
+
+    <b>OnDesktop</b>
+        The mouse cursor is over the desktop (root window), and not any application window.
+
+    <b>OnToolbar</b>
+        The mouse cursor is over the toolbar (which, by default, is at the bottom edge of the screen).
+
+    <b>OnSlit</b>
+        The mouse cursor is over the fluxbox slit (the thing which nests dock-type windows).
+
+    <b>OnWindow</b>
+        The mouse cursor is over a window.
+
+    <b>OnTitlebar</b>
+        The mouse cursor is over a window’s titlebar.
+
+    <b>OnTab</b>
+        The mouse cursor is over a tab.
+
+    <b>Double</b>
+        Limits this action to double-clicks only.
+
+<b>Combining Modifiers</b>
+To combine two or more modifiers, just list them (space-delimited) in any order.
+<hr>
+
+<b>KEYS (KEYBINDS)</b>
+
+You may specify a key by its key name (for example, <b>a</b> or <b>space</b>) or by its
+numeric keycode (for example, <b>38</b> or <b>0xf3</b>).
+
+If you don’t know the name of a key, you can run <b>xev(1)</b> in a terminal, press the key,
+and see the name in the output. If you have some "special" keys that do not produce a key name in the
+output of <b>xev(1)</b>, you can just use the keycode (NOT the keysym!) in your keys file.
+
+Commands can also be bound to mouse events (<em>N</em> denotes the number of the button,
+e.g. <em>1</em> is the primary button, <em>4</em>/<em>5</em> are the wheel buttons):
+
+<b>MouseN</b>
+        The mouse button <em>N</em> is pressed down and held.
+
+<b>ClickN</b>
+        The mouse button <em>N</em> is clicked (pressed and released with no movement in between)
+
+<b>MoveN</b>
+        The mouse button <em>N</em> is currently held, the bound action is triggered as often as the mouse moves.
+
+
+<b>There are some special "keys" that let you bind events to non-keyboard events</b>:
+
+<b>ChangeWorkspace</b>
+        Fires when the workspace changes. This can be used to change backgrounds or
+        do anything else you like when you switch to a new workspace. See the <b>EXAMPLES</b> below for one idea.
+
+        <b>WARNING</b>
+        Use caution with this event! For example, do NOT bind this to any action that changes your current workspace.
+        If you break your fluxbox with this feature, you get to keep the pieces.
+<!--  THIS SNIPPET, above, WAS COPIED FROM MANPAGE ======= CHECK WHETHER IT HAS BEEN IMPLEMENTED  -->
+
+<!--  SUPPLEMENTAL -->
+    Example:
+        # changes your background image (requires images bg0.png...bgX.png in ~/.fluxbox/ directory)  <!-- redundant, mentioned below -->
+        # <B>so that each workspace features a different/distinct wallpaper background image:</B>
+           :ChangeWorkspace :Exec fbsetbg ~/.fluxbox/bg$(xprop -root _NET_CURRENT_DESKTOP | awk '{print $3}').png
+
+             to see a dry run test, paste the following commandline in a terminal emulator:
+                 fbsetbg ~/.fluxbox/bg$(xprop -root _NET_CURRENT_DESKTOP | awk '{print $3}').png
+       <!--   outcommendted b/c 'osdctl' is not native to antiX, and  this stupidly-long line causes horizontal scrollbar
+       # displays your workspace name.
+           :ChangeWorkspace :Exec osdctl -s $(xprop -root _NET_CURRENT_DESKTOP _WIN_WORKSPACE_NAMES | sed 's/[,"]//g' | awk 'NR==1 {cur=$3} NR==2 {name=$(3+cur); print name ","}')
+       -->
+
+
+////////////////  TODO: Advanced users only?
+<b>FocusIn / FocusOut</b>
+    Fires when the focus is given to or removed from a window.
+    It may be useful to combine this with the 'If' command, in the section "Special Commands" below.
+
+<b>MouseOver / MouseOut</b>
+    Fires when the mouse cursor enters or leaves a specific area of the screen.
+    It may be useful to combine this with the 'On*' modifiers detailed above and/or the 'If' command.
+////////////////
+<hr>
+
+<b>CHAINING</b>
+Key bindings can be chained in a fashion similar to Emacs key bindings using the syntax:
+
+<em>modifiers-1</em> <em>key-1</em> <em>modifiers-2</em> <em>key-2</em> :'command' [<em>arguments ...</em>]*
+
+To abort a chained command part-way through typing it, press the &lt;ESC&gt; key.
+
+To Bind CTRL+C CTRL+X (Which means, press CTRL+C then CTRL+X) to quit fluxbox
+        Control c Control x :Quit
+<hr>
+
+<b>KEYMODES</b>
+
+A specific set of key mappings can be activated and de-activated on-the-fly using what are called keymodes.
+The syntax to define a mapping in a keymode is:
+
+<b><em>keymode</em>: <em>modifiers</em> <em>key</em> :'command' [<em>arguments</em> <em>...</em>]</b>
+
+Where <em>keymode</em> is any alphanumeric string name.
+
+When this keymode is activated (see the <b>KeyMode</b> command below), all bindings prefaced by
+that keymode name become active (and all other keybindings will be deactivated) until the keymode changes again.
+
+<b>COMMANDS</b>
+
+Some commands have multiple names which are shown below as
+        CMD1 | CMD2
+Related commands have been grouped below as
+        CMD1 / CMD2
+The commands documentation is divided into sections as follows
+    Mouse Commands
+    Window Commands
+    Workspace Commands
+    Menu Commands
+    Window Manager Commands
+    Special Commands
+<hr>
+
+<b>Mouse Commands</b>
+
+Mouse commands may only be bound to mouse buttons (plus modifiers), not keystrokes.
+In all cases, the action finishes when the mouse button is released.
+
+<b>StartMoving</b>
+        Start dragging to move the window.
+
+<b>StartResizing</b> [<em>corner</em>]
+        Start dragging to resize the window as if you had grabbed the window at the specified <em>corner</em>.
+
+By default <em>corner</em> is <b>BottomRight</b>, but may be overridden with one of:
+
+    <b>NearestCorner  NearestEdge  NearestCornerOrEdge  Center  TopLeft  Top  TopRight
+    Left  Right  BottomLeft  Bottom  BottomRight</b>
+
+If <b>NearestCornerOrEdge</b> is specified the size of the corner can also be specified to be the larger of
+one or two following numbers: [<em>pixel-size</em> [<em>percent-size</em>]]
+or <em>percent-size</em>%, where <em>percent-size</em> is the percentage of half the window width or height.
+If no size is given, it defaults to 50 pixels and 30%.
+
+    Examples  <!-- SUPPLEMENTAL  -->
+          :OnWindow Mod1 Mouse3 :StartResizing BottomRight      # Fluxbox default (?)
+          :OnWindow Mod1 Mouse3 :StartResizing NearestCorner    # used in most other window managers
+
+<b>StartTabbing</b>
+        Start dragging to add this window to another’s tabgroup.
+
+<b>ActivateTab</b>
+        Activates the tab underneath the mouse.
+<hr>
+
+
+
+<b>Window Commands</b>   <!--   CONSIDER: WHICH OF THESE ARE GOOD CANDIDATES TO ADD TO THE TITLEBAR RIGHT-CLICK MENU (MenuCreator.cc)    -->
+                                <!--       MaximizeHorizontal   and  MaximizeVertical                           -->
+Window commands ordinarily affect only the currently focused window.
+The <b>OnWindow</b> modifier and <b>ForEach</b> command may affect the window that is <!-- used -->targeted.
+
+<b>Minimize</b> | <b>MinimizeWindow</b> | <b>Iconify</b>
+        Minimize the current window, equivalent to the window button.  <!--  SHOULD ICONIFY HAVE A DIFFERENT BEHAVIOR _AND_ DESCRIPTION?   -->
+
+<b>Maximize</b> | <b>MaximizeWindow</b>
+        Maximize the current window, equivalent to the window button.
+
+<b>MaximizeHorizontal</b> / <b>MaximizeVertical</b>
+        Maximize the current window in one direction only, leaving the other dimension unchanged.
+
+<b>Fullscreen</b>
+        Resize the window’s content to fit the whole screen, without any window decoration.
+        (when a keybind command targets an already fullscreen window, the command serves
+        to toggle OFF "fullscreen" property of that window)
+                       <!--      ^---v     supplemental, not mentioned in manpage  -->
+        Note: while fullscreen, a window covers all components, even if they are set to a higher layer.
+        (Yes, even the fluxbox toolbar. Yes, even if the toolbar has been set to "Auto raise".)
+
+<b>Raise</b> / <b>Lower</b>
+        Reorder this window to the top or bottom of the window stack, within its current layer.
+        See <em>fluxbox(1)</em> for a discussion of layers.
+
+<b>RaiseLayer</b> / <b>LowerLayer</b> [<em>offset</em>]
+        Raise the window up to the layer above, or lower it to the layer below. See <em>fluxbox(1)</em> for a discussion of layers.
+
+<b>SetLayer</b> <em>layer</em>
+        Move the window to the specified layer. <em>layer</em> should be one of
+        <b>AboveDock</b>, <b>Dock</b>, <b>Top</b>, <b>Normal</b>, <b>Bottom</b>, <b>Desktop</b>
+        See <em>fluxbox(1)</em> for a discussion of layers.
+
+<b>Close</b>
+        Close the current window, equivalent to the window button.
+
+<b>Kill</b> | <b>KillWindow</b>
+        Close a window that’s not responding to <b>Close</b>, like using <b>xkill(1)</b>
+
+<b>Shade</b> | <b>ShadeWindow</b>
+        Toggle the <b>shaded</b> state of the current window, equivalent to the window button.
+        A <b>shaded</b> window appears as only the title bar.
+
+<b>ShadeOn</b> / <b>ShadeOff</b>
+        Set the <b>shaded</b> state of the window to On / Off
+
+<b>Stick</b> | <b>StickWindow</b>
+        Toggle the <b>sticky</b> state of the current window, equivalent to the window button.
+        A <b>sticky</b> window is visible on all workspaces.
+
+<b>SetDecor</b> <em>decor</em>
+        Sets which window decorations will be shown. <em>decor</em> has the same format
+        as the ‘[Deco]’ parameter in the apps file. See <em>fluxbox-apps(5)</em> for more info.
+
+<b>ToggleDecor</b>
+        Toggles the presence of the window decorations (title bar, window buttons, and resize bar)
+
+<b>NextTab</b> / <b>PrevTab</b>
+        Cycle to the next / previous tab in the current tab group
+
+<b>Tab</b> <em>number</em>
+        Cycle to the given tab in the current tab group, where <b>1</b> is the first tab.
+        A negative <em>number</em> counts from the end of the tab group
+        (<b>-1</b> is the last tab, <b>-2</b> is the next-to-last, etc.)
+
+<b>MoveTabRight</b> / <b>MoveTabLeft</b>
+        Reorder the tabs in the current tab group, swapping the current tab with the one to the right / left.
+
+<b>DetachClient</b>
+        Remove the current tab from the tab group, placing it in its own window
+
+<b>ResizeTo</b> <em>width[%]</em> <em>height[%]</em>
+        Resizes the window to the given width and height.
+        If the value is given in percent, the window size will be based on the current screen’s size.
+
+<b>Resize</b> <em>delta-width[%]</em> <em>delta-height[%]</em>
+        Resizes the window relative to the current width and height.
+        If the value is given in percent, the window size will be based on the current window’s size.
+
+<b>ResizeHorizontal</b> <em>delta-width[%]</em> / <b>ResizeVertical</b> <em>delta-height[%]</em>
+        Resizes the window in one dimension only.
+        If the value is given in percent, the window size will be based on the current window’s size.
+
+<b>MoveTo</b> <em>x[%]</em> <em>y[%]</em> [<em>anchor</em>]
+        Moves the window to the specified coordinates, given in pixels or relative to
+        the current screen size if % is specified after the value.
+
+        If either <em>x</em> or <em>y</em> is set to wildcard <b>*</b> that coordinate will be ignored,
+        and the movement will only take place in one dimension.
+
+        The default <em>anchor</em> is the upper left corner, but this may be overridden with one of:
+            <b>TopLeft Left BottomLeft Top Center Bottom TopRight Right BottomRight</b>
+<!--       SUPPLEMENTAL
+		The syntax for the <b>MoveTo</b> command is
+			:MoveTo [int|*] [int|*] [reference corner]
+
+		The wildcard <b>*</b> means "use current value" and 'reference corner' is one of the following
+			:* Left, Right
+			:* Upper, UpperLeft, UpperRight
+			:* Lower, LowerLeft, LowerRight
+-->     Examples
+          :MoveTo 0 * Left       -&gt; snap to left workspace edge
+          :MoveTo * 0 Lower      -&gt; snap to lower workspace edge
+          :MoveTo 0 0 UpperRight -&gt; snap to upper right workspace corner
+
+
+
+<b>Move</b> <em>delta-x</em> <em>delta-y</em>
+        Moves the window relative to its current position.
+        Positive numbers refer to right and down, and negative to left and up, respectively.
+
+<b>MoveRight</b> <em>d</em> / <b>MoveLeft</b> <em>d</em> / <b>MoveUp</b> <em>d</em> / <b>MoveDown</b> <em>d</em>
+        Moves the window relative to its current position by the number of pixels specified in <em>d</em>.
+        If the number is negative, it moves in the opposite direction.
+
+<b>TakeToWorkspace</b> <em>workspace</em> / <b>SendToWorkspace</b> <em>workspace</em>
+        Sends you along with the current window to the selected workspace.
+        SendToWorkspace just sends the window. The first workspace is number <b>1</b>, not 0
+
+<b>TakeToNextWorkspace</b> [<em>offset</em>] / <b>TakeToPrevWorkspace</b> [<em>offset</em>]
+        Sends you along with the current window to the next or previous workspace.
+        If you set <em>offset</em> to a value greater than the default of <b>1</b>, it will move you
+        that number of workspaces ahead or behind.
+        If you go beyond the end of the currently defined workspaces, it will wrap around to the other end automatically.
+
+<b>SendToNextWorkspace</b> [<em>offset</em>] / <b>SendToPrevWorkspace</b> [<em>offset</em>]
+        Identical to the "TakeTo..." commands, but again this sends only the window, and does not move you away from your current workspace.
+
+<b>SetAlpha</b> [<em>alpha</em> [<em>unfocused-alpha</em>]]
+    Sets the alpha value of a window.
+    Putting a <b>+</b> or <b>-</b> in front of the value adds or subtracts from the current value.
+    A plain integer sets the value explicitly.
+
+    no arguments
+        Resets both focused and unfocused settings to default opacity.
+
+    one argument
+        Changes both focused and unfocused alpha settings.
+
+    two arguments
+        First value becomes the focused alpha, second becomes the unfocused alpha value.
+
+<b>SetHead</b> <em>number</em>
+        Moves the window to the given display head. Only available when fluxbox has been compiled with Xinerama support.
+
+<b>SendToNextHead</b> [<em>offset</em>] / <b>SendToPrevHead</b> [<em>offset</em>]
+        Sends the current window to the next/previous display head. If you specify an <em>offset</em> greater than <b>1</b>,
+        it will move the window that many heads. If this takes the window beyond the total number of heads, it
+        will wrap around to the beginning.
+
+<b>SetXProp</b> <em>PROP=value</em>
+        Sets the xproperty <em>PROP</em> of the current window to <em>value</em>.
+        Delete the content of <em>PROP</em> by using <em>PROP=</em>.
+
+        Example usage:
+        Apply (or delete) a 'tag' with "SetXProp TAG1=yes", then use the client pattern mechanism
+        to match such 'tagged' windows, eg. "NextWindow@TAG1=yes)"
+        SEE "@XPROP" LATER IN THIS DOCUMENT ("CLIENT PATTERNS" SECTION)
+
+<hr>
+
+
+
+<b>Workspace Commands</b>
+<b><i>Workspace commands affect the entire workspace (or "desktop" as it is sometimes called).</i></b>
+
+<b>AddWorkspace</b> / <b>RemoveLastWorkspace</b>
+        Adds or removes a workspace from the end of the list of workspaces
+
+<b>NextWorkspace</b> [<em>n</em>] / <b>PrevWorkspace</b> [<em>n</em>] / <b>RightWorkspace</b> [<em>n</em>] / <b>LeftWorkspace</b> [<em>n</em>]
+
+        Switch to the Next / Previous workspace. All versions accept an offset value <em>n</em>, which defaults to <b>1</b>
+        and refers to the number of workspaces to move at one time. {Next,Prev}Workspace wrap around when
+        going past the last workspace, whereas {Right,Left}Workspace do not.
+        The special offset "0" will toggle the former workspace for  NextWorkspace  and  PrevWorkspace
+
+<b>Workspace</b> <em>number</em>
+        Jumps to the given workspace <em>number</em>. The first workspace is <b>1</b>.
+
+<b>NextWindow</b> [{<em>options</em>}] [<em>pattern</em>] / <b>PrevWindow</b> [{<em>options</em>}] [<em>pattern</em>]
+    Focuses the next / previous window in the focus list.
+
+    <em>options</em> is one or more of the following, space delimited:
+
+    <b>static</b>
+          Instead of moving in order of most-recent focus, move in order of when the window was opened
+          (or, the order shown in the iconbar).
+
+    <b>groups</b>
+          Only include the current tab in windows with multiple tabs.
+<!--             SUPPLEMENTAL (MAY BE OUTDATED)
+    <b>PrevWindow</b> / <b>NextWindow</b> parameters take a bitmask:
+
+        :* 0 or unspecified = Default/current behavior - no skipping
+        :* 1 cycle groups
+        :* 2 skip stuck windows
+        :* 4 skip shaded windows
+
+        :* 8 cycle linear (use the same order every time) For example, the following
+             will skip any window which is stuck, or shaded, because 6 = 4 + 2.
+
+               Mod1 tab :NextWindow 6
+        Configuration file version 13 (look for "FBCV13" in your keys file) requires this syntax.
+
+        This example cycles through all windows on the current workspace (and current head your mouse is on):
+               Mod1 Tab :NextWindow (workspace=[current]) (head=[mouse])
+-->
+
+    If <em>pattern</em> arguments are supplied, only windows that match all the patterns are considered - all others are skipped.
+    See the section <b>CLIENT PATTERNS</b> below for more information.
+
+This pair of commands has a special side-effect when the keybinding used has a modifier - It will temporarily raise
+the cycled window to the front so you can see it, but if you continue holding down the modifier and press the key again
+(For example, keep holding "Alt" while you tap the "Tab" key a few times),
+fluxbox will lower the window again when you move onward to the next one.
+This allows you to preview the windows in order, but does not change the order in doing so.
+
+<b>NextGroup</b> [{<em>options</em>}] [<em>pattern</em>] / <b>PrevGroup</b> [{<em>options</em>}] [<em>pattern</em>]
+        Equivalent to NextWindow / PrevWindow above, but with the <b>groups</b> option forced on.
+
+<b>GotoWindow</b> <em>number</em> [{<em>options</em>}] [<em>pattern</em>]
+        Focuses and activates the window at position <em>number</em> in the focus list.
+        The <em>options</em> and <em>pattern</em> arguments have the same meaning as <b>NextWindow</b> above.
+
+<b>Activate</b> [<em>pattern</em>] | <b>Focus</b> [<em>pattern</em>]
+        With <em>pattern</em>, this is an alias for <b>GoToWindow</b> 1 <em>pattern</em>. Without,
+        this behaves like a window command, so that OnWindow events can change the focused window.
+
+<b>Attach</b> <em>pattern</em>
+        Combines all windows that match the <em>pattern</em> into a single tab group.
+        See <b>CLIENT PATTERNS</b> for more about the <em>pattern</em> arguments.
+
+<b>FocusLeft</b> / <b>FocusRight</b> / <b>FocusUp</b> / <b>FocusDown</b>
+        Focus to the next window which is located in the direction specified.
+
+<b>ArrangeWindows</b> <em>pattern</em> / <b>ArrangeWindowsVertical</b> <em>pattern</em> / <b>ArrangeWindowsHorizontal</b> <em>pattern</em>
+        Tries to arrange all windows on the current workspace so that they overlap the least amount possible.
+        <b>ArrangeWindowsVertical</b> prefers vertical splits (windows side by side), whereas <b>ArrangeWindowsHorizontal</b> prefers
+        horizontal splits (windows on top of eachother). See <b>CLIENT PATTERNS</b> for more about the <em>pattern</em> arguments.
+
+<b>ArrangeWindowsStackLeft</b> <em>pattern</em> / <b>ArrangeWindowsStackRight</b> <em>pattern</em>
+    Similar to <b>ArrangeWindows</b>, these commands (re)arrange windows on the current workspace.
+    The currently focused window is used as the <em>main</em> window, and will fill half the screen,
+    while the other windows are tiled on the other half of the screen as if they were tiled with ArrangeWindows.
+
+    <b>ArrangeWindowsStackLeft</b> puts the main window on the RIGHT hand side of the screen,
+    and the tiled windows are on the LEFT hand side of the screen.
+
+    <b>ArrangeWindowsStackRight</b> puts the main window on the LEFT hand side of the screen,
+    and the tiled windows are on the RIGHT hand side of the screen.
+
+<b>ArrangeWindowsStackTop</b> <em>pattern</em> / <b>ArrangeWindowsStackBottom</b> <em>pattern</em>
+    Behaves just like <b>ArrangeWindowsStackLeft</b> and <b>ArrangeWindowsStackRight</b>.
+
+<b>ArrangeWindowsStackBottom</b> places the main window on the TOP half of the screen,
+and the tiled windows on the bottom half of the screen.
+
+<b>ArrangeWindowsStackTop</b> places the main window on the BOTTOM half of the screen,
+and the tiled windows on the top half of the screen.
+
+<b>Unclutter</b> <em>pattern</em>         <!--       RECENTLY ADDED       -->
+Arrange all matching windows to reduce the overall window overlap as much as possible. Windows are not resized.
+See *CLIENT PATTERNS* for more about the 'pattern' arguments.
+
+<b>ShowDesktop</b>
+    Minimizes all windows on the current workspace. If they are already all minimized, then it restores them.
+
+<b>ToggleSlitAbove</b>        <!--       RECENTLY ADDED       -->
+    Toggles the slit between its regular and the AboveDock layer
+
+<b>ToggleSlitHidden</b>        <!--       RECENTLY ADDED       -->
+    Toggles the slit's autohiding state (autohide doesn't have to be enabled)
+
+<b>ToggleToolbarAbove</b>        <!--       RECENTLY ADDED       -->
+    Toggles the toolbar between its regular and the AboveDock layer
+    (ie. above everything, even visible on active fullscreen windows)
+
+<B>ToggleToolbarHidden</B>        <!--       RECENTLY ADDED       -->
+    Toggles the toolbar's autohiding state (autohide doesn't have to be enabled)
+
+
+<b>Deiconify</b> <em>mode</em> <em>destination</em>       <!--   skidoo   BUGGED: may not preserve stacking order of transient windows -->
+    Deiconifies windows (or, restores from a minimized state)
+    Where <em>mode</em> may be one of:
+
+        <b>All</b>
+            All icons across all workspaces
+
+        <b>AllWorkspace</b>
+            All icons on the current workspace
+
+        <b>Last</b>
+            The last icon across all workspaces
+
+        <b>LastWorkspace</b> (default)
+            The last icon on the current workspace
+
+    And <em>destination</em> may be one of:
+        <b>Current</b> (default)
+            Deiconify to the current workspace
+
+////// TODO: Leave this out until it is stable!     AS FOUND IN MANPAGE SOURCE -- DUNNO WHETHER THE FEATURE IS NOW "STABLE"
+//////  <b>Origin</b>
+//////      Deiconify to the window's original workspace, and moves you there.... sometimes?
+
+        <b>OriginQuiet</b>
+            Deiconify to the window’s original workspace, but does so in the background, without moving you there.
+
+<b>SetWorkspaceName</b> <em>name</em> / <b>SetWorkspaceNameDialog</b>
+    Sets the name of the current workspace
+
+<b>CloseAllWindows</b>
+    Closes all windows on all desktops
+<hr>
+
+
+
+<b>Menu Commands</b>
+<b><i>Menu commands open or close fluxbox popup menus.
+For more information on What these menus contain or how to configure them, see</i> fluxbox(1)</b>
+
+<b>RootMenu</b>
+        Opens the root menu. See <b>ROOT MENU</b> in <b>fluxbox-menu(5)</b> for details
+
+<b>WorkspaceMenu</b>
+        Opens a menu showing all workspaces and windows. See <b>Workspace Menu</b> in <b>fluxbox(1)</b> for details
+
+<b>WindowMenu</b>
+        Opens a menu containing actions for the current window. See <b>WINDOW MENU</b> in <b>fluxbox-menu(5)</b> for details
+
+<b>ClientMenu</b> [<em>pattern</em>]
+        Opens a menu that contains all windows. If you specify a <em>pattern</em>, only matching windows will be in the menu.
+        Selecting a window will jump to that workspace and raise the window.
+        See <b>CLIENT PATTERNS</b> below for more details on the <em>pattern</em> argument.
+
+<b>CustomMenu</b> <em>path</em>
+        Opens a custom menu file.
+        This <em>path</em> must be a valid menu file in the same format as detailed by the <b>ROOT MENU</b> section of <b>fluxbox-menu(5)</b>
+
+<b>HideMenus</b>
+        Hide all fluxbox popup menus
+<hr>
+
+
+
+<b>Window Manager Commands</b>
+<b><i>Window manager commands affect the Window Manager, or more than one window.</i></b>
+
+<b>Restart</b> [<em>path</em>]
+        Restarts fluxbox. This does not close any running applications.
+        If the optional <em>path</em> is a path to an executable window manager, that manager is started in place of fluxbox.
+
+<b>Quit</b> | <b>Exit</b>
+        Exits fluxbox. This will normally cause X to stop as well and terminate all existing applications,
+        returning you to the login manager or console.
+
+<b>Reconfig</b> | <b>Reconfigure</b>
+        Reloads all fluxbox configuration files including the keys file, apps file, and init file, if they have changed.
+
+<b>SetStyle</b> <em>path</em>
+        Sets the current style to that given in <em>path</em>, which must be the full path to a fluxbox style.
+
+<b>ReloadStyle</b>
+        Reloads only the current style. Useful after editing a style which is currently in use.
+
+<b>ExecCommand</b> <em>args ...</em> | <b>Exec</b> <em>args ...</em> | <b>Execute</b> <em>args ...</em>
+
+        Probably the most-used binding of all.
+        Passes all the arguments to your <b>$SHELL</b> (or /bin/sh if $SHELL is not set).
+        You can use this to launch applications, run shell scripts, etc.
+        Since all arguments are passed verbatim to the shell, you can use environment variables,
+        pipes, or anything else the shell can do. Note that processes only
+        see environment variables that were set before fluxbox started (such as in <b>~/.fluxbox/startup</b>),
+        or any that are set via the <b>Export</b> or <b>SetEnv</b> commands, below.
+        See <b>fluxbox(1)</b> for more details on the <b>ENVIRONMENT</b> and <b>\~/.fluxbox/startup</b> file.
+
+<b>CommandDialog</b>
+        Pops up a dialog box that lets you type in any of these commands manually.
+        THESE ~= ANY FLUXBOX COMMAND(S)?
+
+<b>SetEnv</b> <em>name</em> <em>value</em> | <b>Export</b> <em>name</em>=<em>value</em>
+        Sets an environment variable in Fluxbox.
+        It will be passed to any applications spawned by any future ExecCommand commands.
+
+<b>SetResourceValue</b> <em>resourcename</em> <em>resourcevalue</em> | <b>SetResourceValueDialog</b>
+        Sets or changes a fluxbox resource value within the init file.
+        See <em>fluxbox(1)</em> for more details on available resources and allowed values.
+        <!--  TESTED.  USABILITY NIGHTMARE... AND BUGGY
+              Set a keybind      Control F1: CommandDialog
+              Recongifure
+              press Ctrl+F1
+              observe TOO NARROW dialogbox  title "Fluxbox C0mmand"
+              type (dialogbox does not accept paste, dammit!)     SetResourceValueDialog
+              observe TOO NARROW dialogbox titled "Type resource name and the valu"  {----- TRUNCATED, OR MISSPELLING?
+              type    session.screen0.antialias  false  (and press enter)
+              note that the ~/.fluxbox/init file is touched (Reconfigure automatically occurred?) but its content remains unchanged
+                      i.e.   find/verify the line       session.screen0.antialias:true
+              OH, SO USER IS SUPPOSED TO HAVE CONSULTED fluxbox(1) and SO KNOWS
+              WHICHALL  "available resources and allowed values"  ???
+
+              I've changed the default width (TextDialog.cc) from 200 to 540
+              (CommandDialog instantiates TextDialog, and TextDialog does not accept a "width" parameter)
+              but don't care to further wrestle with this probably useless "SetResourceValue (via dialog)" feature
+
+         -->
+
+<!--
+<b>Toggle and SetResourceValue have nice possibilities of changing boolean values in the init file.</b>
+However, a change to the resource values requires a reconfigure for them to take effect.
+Unfortunately, reconfiguring within a toggle command resets the toggle command, meaning you'll never make it to the 'second' toggle.
+This 'feature' may get fixed in an upcoming SVN/GIT release.
+Workaround this by binding two separate keys:
+
+    #Hide/Show toolbar with 2 macro commands until Toggle/Reconfigure bug/feature is fixed
+    Mod4 comma               :MacroCmd {SetResourceValue session.screen0.toolbar.visible false} {Reconfigure}
+    Mod4 period              :MacroCmd {SetResourceValue session.screen0.toolbar.visible true} {Reconfigure}
+-->
+
+
+<b>RelabelButton</b> <em>buttonname</em> <em>newlabelstring</em>
+    dynamically changes the label of a button (e.g to reflect the $USER in a
+    session menu button, the number of unread emails, etc) example usage:
+    "fluxbox-remote RelabelButton button.foo $LABEL"
+<hr>
+
+
+
+<b>Special Commands</b>
+<b><i>The following commands have special meanings or behaviors.</i></b>
+
+<b>MacroCmd</b> {<em>command1</em>} {<em>command2</em>} {<em>command3</em>} <em>...</em>
+        Enables you to execute more than one command with one keybinding.
+        The commands will be executed in series.
+        The <b>{</b> <b>}</b> brackets are literally required, as in the following example:
+            MacroCmd {MoveTo 0 0} {ResizeTo 1280 800}
+
+        The commands will be executed in the order they are supplied, and can be
+        either <b>Exec[Command]</b> or internal commands such as <b>ShowDesktop</b>
+
+
+<b>Delay</b> {<em>command</em>} [<em>microseconds</em>]
+        Delays running <em>command</em> for the given amount of time.
+        If the same key binding is activated again, the timer will be restarted.
+
+<b>ToggleCmd</b> {<em>command1</em>} {<em>command2</em>} <em>...</em>
+        Alternates between the commands. On the first press of the bound key, runs <em>command1</em>.
+        On the next press, runs <em>command2</em>.
+
+        Example (minimize all windows, and then bring them back):
+            Mod4 m :ToggleCmd {ShowDesktop} {DeIconify all originquiet}
+            <!--   skidoo  Are we gonna place a toolbar button for this? Ah, label only, no icon. HOWABOUTA unicode glyph    -->
+
+<b>BindKey</b> <em>keybinding</em>
+        Adds the given <em>keybinding</em> (which must be a valid key binding as defined in the DESCRIPTION
+        section above) to your keys file, on-the-fly.
+<!--             SUPPLEMENTAL (MAY BE OUTDATED)
+
+    <b>BindKey</b> will append key string and action to your keys file and bind the key.
+    A delta value means the difference between the current setting and the requested setting.
+    Assume your window 100 is pixels wide.
+
+     This keybind would increase the size of your window to 110 pixels
+              Mod1 r :ResizeHorizontal 10
+
+     The following keybind would decrease the size by 10, setting it to 90 pixels
+              Mod1 R :ResizeHorizontal -10
+-->
+
+
+<b>KeyMode</b> <em>keymode</em> [<em>return-keybinding</em>]
+        Activates the named <em>keymode</em> (or, all key binding lines prefaced with the same <em>keymode</em>:)
+        and deactivates all others until the <em>return-keybinding</em> (by default <b>Escape</b>) is pressed.
+        The default keymode is named <em>default</em>.
+
+<b>ForEach</b> {<em>command</em>} [{<em>condition</em>}] | <b>Map</b> {<em>command</em>} [{<em>condition</em>}]
+        Runs the given <em>command</em> (normally one from the <b>Window Commands</b> section above) on each window.
+        If you specify a <em>condition</em> (See <b>Conditions</b>, below) the action will be limited to matching windows.
+
+<b>If</b> {<em>condition</em>} {<em>then-command</em>} [{<em>else-command</em>}] | <b>Cond</b>  {<em>condition</em>} {<em>then-command</em>} [{<em>else-command</em>}]
+        If the <em>condition</em> command returns <b>true</b>, then run the <em>then-command</em>,
+        otherwise run the optional <em>else-command</em>.
+        See <b>Conditions</b> below for more information on the <em>condition</em> argument.
+
+        <b>Conditions</b>
+        These special commands are used to match windows conditionally.
+        They are commonly used by the <b>If</b> and <b>ForEach</b> command.
+
+            <b>Matches</b> <em>pattern</em>
+                Returns <b>true</b> if the current window matches the given <em>pattern</em>.
+                See <b>CLIENT PATTERNS</b> below for details on the <em>pattern</em> syntax.
+
+                If your key binding uses the <b>OnWindow</b> modifier, it matches against the window
+                you clicked, not the currently focused window.
+
+                To check other windows besides the currently focused one,
+                see the <b>Every</b> and <b>Some</b> conditions below.
+
+            <b>Some</b> <em>condition</em>
+                Returns <b>true</b> if any window on any workspace
+                (not just the currently focused one) matches the <em>condition</em>
+
+            <b>Every</b> <em>condition</em>
+                Returns <b>true</b> if every window on every workspace
+                (not just the current one) matches the <em>condition</em>
+
+            <b>Not</b> <em>condition</em>
+                Returns <b>true</b> if <em>condition</em> returns <b>false</b>, and vice-versa.
+
+            <b>And</b> {<em>condition1</em>} {<em>condition2</em>} [{<em>condition3</em>} ...]
+                Returns <b>true</b> if and only if all given conditions return <b>true</b>
+
+            <b>Or</b> {<em>condition1</em>} {<em>condition2</em>} [{<em>condition3</em>} ...]
+                Returns <b>true</b> if any of the listed conditions return <b>true</b>
+
+            <b>Xor</b> {<em>condition1</em>} {<em>condition2</em>} [{<em>condition3</em>} ...]
+                Returns the boolean <b>xor</b> of the truth values for all conditions listed.
+<hr>
+
+<b>CLIENT PATTERNS</b>
+Many of the more advanced commands take a <em>pattern</em> argument, which allows you to direct the action
+at a specific window or set of windows which match the properties specified in the <em>pattern</em>.
+
+A <em>pattern</em> looks like this
+
+    <b>(</b>[<em>propertyname</em>[!]=]<em>regexp</em><b>)</b> ...
+
+Match definitions are enclosed in parentheses <b>(</b>...<b>)</b>, and if no <em>propertyname</em> is given
+then <b>Name</b> is assumed. The <em>regexp</em> can contain any regular expression, or the special value <b>[current]</b>,
+which matches the corresponding value of the currently focused window.
+See <em>regex(7)</em> for more information on acceptable regular expressions.
+
+<em>propertyname</em> is not case sensitive, whereas the <em>regexp</em> is.
+
+If you specify multiple <b>(<em>pattern</em></b>) arguments, this implies an AND condition -
+All specified patterns must match.
+
+You can use <b>=</b> to test for equality or <b>!=</b> to test for inequality.
+
+The following values are accepted for <em>propertyname</em>
+<div style="border: solid 1px black; padding: 8px; margin-left: 16px;">
+<b>Name</b>
+    A string, corresponding to the CLASSNAME property
+    (The first field of WM_CLASS from the output of the <b>xprop(1)</b> utility)
+
+<b>Class</b>
+    A string, corresponding to the CLASSCLASS property
+    (The second field of WM_CLASS from the output of the <b>xprop(1)</b> utility)
+
+<b>Title</b>
+    A string, corresponding to the window title (WM_NAME from <b>xprop(1)</b>)
+
+<b>Role</b>
+    A string, corresponding to the ROLE property (WM_WINDOW_ROLE from <b>xprop(1)</b>)
+
+<b>Transient</b>
+    Either <b>yes</b> or <b>no</b>, depending on whether the window is transient (typically, a popup dialog) or not
+
+<b>Maximized</b>
+    Either <b>yes</b> or <b>no</b>, depending on whether the window is maximized or not
+
+<b>MaximizedHorizontal</b>
+    Either <b>yes</b> or <b>no</b>, depending on whether the window is maximized horizontally or not
+
+<b>MaximizedVertical</b>
+    Either <b>yes</b> or <b>no</b>, depending on whether the window is maximized vertically or not
+
+<b>Minimized</b>
+    Either <b>yes</b> or <b>no</b>, depending on whether the window is minimized (iconified) or not
+
+<b>Fullscreen</b>
+    Either <b>yes</b> or <b>no</b>, depending on whether the window is fullscreen or not
+
+<b>Shaded</b>
+    Either <b>yes</b> or <b>no</b>, depending on whether the window is shaded or not
+
+<b>Stuck</b>
+    Either <b>yes</b> or <b>no</b>, depending on whether the window is sticky (on all workspaces) or not
+
+<b>FocusHidden</b>
+    Either <b>yes</b> or <b>no</b>, depending on whether the window has asked to be
+    left off the focus list (or, the alt-tab list), or not.
+
+<b>IconHidden</b>
+    Either <b>yes</b> or <b>no</b>, depending on whether the window has asked to be
+    left off the icon list (or, the taskbar), or not.
+
+<b>Urgent</b>
+    Either <b>yes</b> or <b>no</b>, depending on whether the window has the urgent hint set.
+
+<b>Workspace</b>
+    A number corresponding to the workspace number to which the window is attached.
+    The first workspace here is <b>0</b>. You may also use <b>[current]</b> to match the currently visible workspace.
+
+<b>WorkspaceName</b>
+    A string corresponding to the name of the workspace to which the window is attached.
+
+<b>Head</b>
+    The number of the display head to which the window is attached.
+    You may match this against the special value <b>[mouse]</b> which refers to the head where the mouse pointer currently resides.
+
+<b>Layer</b>
+    The string name of the window’s layer, which is one of
+    <b>AboveDock</b>, <b>Dock</b>, <b>Top</b>, <b>Normal</b>, <b>Bottom</b>, <b>Desktop</b>
+
+<b>Screen</b>
+    The number of the currently used <em>screen</em>.
+    If the setup of the running xserver involves independent screens (<em>not Xinerama</em>),
+    the $DISPLAY environment contains something like <em>:0.1</em> or <em>:1.0</em>.
+    The part after the dot (<em>.</em>) is the number of the screen.
+
+<b>@XPROP</b>
+    A string, corresponding to any xproperty (Use either the <b>xprop(1)</b> utility
+    or the <em>SetXProp</em> command to set a xproperty to a window)
+
+    Matches any windows with the CLASSNAME of "xterm"
+        (xterm)
+
+    Matches any windows with the same CLASSNAME as the currently focused window
+        (Name=[current])
+
+    Matches any windows on the same head as the mouse but on a different layer than the currently focused window
+        (Head=[mouse]) (Layer!=[current])
+
+    Matches any windows having a xproperty named FOO with "bar" in it
+        (@FOO=.*bar.*)
+</div>
+<hr>
+<b>FILES</b>
+    <b>~/.fluxbox/keys</b>
+        This is the default location for the keybinding definitions
+
+    <b>/usr/X11R6/include/X11/keysymdef.h</b>
+        X key names are in this file.
+
+    <b>/usr/X11R6/lib/X11/XKeysymDB</b>
+        X key names are also in this file.
+<hr>
+<b>RESOURCES</b>
+
+    <b>session.keyFile:</b> <em>location</em>
+        This may be set to override the location of the keybinding definitions.
+<hr>
+<b>ENVIRONMENT</b>
+
+Remember that <b>ExecCommand</b> command can take advantage of other environment
+variables if they are set before fluxbox is started, or via the <b>Export</b> or
+<b>SetEnv</b> commands. For example, if <b>$TERM</b> is set, it could be use like this:
+    Mod1 x :ExecCommand $TERM
+For more information about environment variables, see your shell’s manual.
+<hr>
+
+<b>EXAMPLES</b>
+Here are a few interesting and/or useful examples you can do with your keys file.
+
+# Mod4+drag moves a window
+OnWindow Mod4 Mouse1 :StartMoving
+
+# If any xterm windows are open, cycle through them. If none are open, open one:
+Mod4 t :If {Some Matches (xterm)} {NextWindow (xterm)} {Exec xterm}
+
+# Set a different wallpaper on every workspace:
+ChangeWorkspace :Exec fbsetbg ~/.fluxbox/bg$(xprop -root _NET_CURRENT_DESKTOP | awk '{print $3}').png
+
+# Focuses the next window with it's xproperty 'PROP' set to 'foo'
+Mod4 p Mod4 Tab :NextWindow (@PROP=foo)
+
+<hr>
+<b>SEE ALSO</b>
+
+fluxbox(1) xprop(1) xev(1) xkill(1) regex(7)</pre>
+<br><hr><hr><hr><br>
+
+
+
+
+
+
+<div style="width:720px;">
+
+<h1>KeyModes</h1>
+
+<h2>What are KeyModes?</h2>
+
+<p>KeyModes are a way to create modes or "namespaces" within the keybindings of Fluxbox.
+They create a context for Fluxbox's keybindings and can be used in any way you see fit to make Fluxbox behave
+ the way you want it to. The most common use for KeyModes is window resizing and movement.</p>
+
+<p>Example:</p>
+<pre>
+Mod4 Shift Up        :ResizeVertical -2
+Mod4 Shift Down      :ResizeVertical +2
+Mod4 Shift Left      :ResizeHorizontal -2
+Mod4 Shift Right     :ResizeHorizontal +2
+Mod1 Shift Up        :ResizeVertical -10
+Mod1 Shift Down      :ResizeVertical +10
+Mod1 Shift Left      :ResizeHorizontal -10
+Mod1 Shift Right     :ResizeHorizontal +10</pre>
+
+<p>As you can see, you run out of <em>usable</em> hotkeys for actions like that pretty quickly.
+ KeyModes alleviate this "namespace clutter" and provide an elegant solution for this use-case.</p>
+
+<h2>How do I use KeyModes?</h2>
+
+<p>You'll use the syntax below, inside   ~/.fluxbox/keys<br>
+:</p>
+<pre>[KeyMode:] [mod mod] key [key key] :command command-options</pre>
+
+<p>If you don't define a KeyMode, the <em>default</em> KeyMode is used instead. To use a mapping inside a KeyMode, use the <b>KeyMode</b> prefix at the beginning of your definition:</p>
+<pre>:KeyMode ModeName [mod [mod mod ...] key [key key ...]]</pre>
+
+<p>The last   <code>mod...key</code>
+ combination is used to get back into the default KeyMode. If this is not defined, the default is bound to <kbd>Esc</kbd>.</p>
+
+<h2>Examples</h2>
+
+<p>Here are a few examples of resizing and moving windows that someone might want to add to their   <i>keys</i> file.</p>
+
+<h3>Resizing windows, exiting with <kbd>Esc</kbd></h3>
+<pre># ResizeMode
+Mod4 w Mod4 r               :KeyMode ResizeMode
+ResizeMode: None Up         :ResizeVertical -2
+ResizeMode: None Down       :ResizeVertical +2
+ResizeMode: None Left       :ResizeHorizontal -2
+ResizeMode: None Right      :ResizeHorizontal +2
+ResizeMode: Shift Up        :ResizeVertical -10
+ResizeMode: Shift Down      :ResizeVertical +10
+ResizeMode: Shift Left      :ResizeHorizontal -10
+ResizeMode: Shift Right     :ResizeHorizontal +10</pre>
+
+<h3>Moving windows, exiting with <i>Esc</i></h3>
+<pre># MoveMode
+Mod4 w Mod4 m               :KeyMode MoveMode
+MoveMode: None Up           :MoveUp 2
+MoveMode: None Down         :MoveDown 2
+MoveMode: None Left         :MoveLeft 2
+MoveMode: None Right        :MoveRight 2
+MoveMode: Shift Up          :MoveUp 10
+MoveMode: Shift Down        :MoveDown 10
+MoveMode: Shift Left        :MoveLeft 10
+MoveMode: Shift Right       :MoveRight 10</pre>
+
+<h3>Disable all keybindings (e.g. using with Xnest)</h3>
+<pre># XnestMode<br />Mod1 x      :KeyMode XnestMode</pre>
+
+<h3>Mode Indicator</h3>
+
+<p>This is a crude example of what you could use to provide an on-screen indicator that you've changed modes:</p>
+<pre>      Mod4 w Mod4 r   :MacroCmd {Exec echo "Resize Mode&quot; | osd_cat -d 1 -p bottom -A center} {KeyMode ResizeMode}</pre>
+
+<p>Other programs are also possible, such as   `inotify` or `xcowsay`</p>
+</div>
+
+<div style="width:720px; border:1px solid black; padding: 8px;">
+
+<h2>What is Mod4</h2>
+
+<p>Mod4 is the ``Windows`` key found on most keyboards. (Often 2 of 'em are present ~~ on each side of spacebar key).
+On the left it is between Ctrl and Alt; on the right side next to AltGr. Then there is also the Menu on the right side, next to Ctrl.</p>
+
+<h2>On an Apple/Mac</h2>
+<p>On Apple keyboards, it is the Apple &quot;command&quot; key, found immediately to the left and right of the space bar.</p>
+
+<h2>Mod key information</h2>
+<p>It is possible to get information about which keys are assigned to which modifiers by running the command</p>
+<pre>      $ xmodmap -pm</pre>
+
+<p>A working Mod4 key will typically have the entry</p>
+<pre>     mod4    Super_L</pre>
+
+<h2>Setting up Mod4</h2>
+<p>If mod4 is not assigned to a key, or you have updated to Modular X and now your mod4 key has quit working, try running the command</p>
+<pre>      $ xmodmap -e 'add mod4 = Super_L'</pre>
+
+<h2>Setting up Super_L</h2>
+<p>If mod4 cannot be assigned, the Super_L keysym may not be assigned to a key on the keyboard. The `<i>xev</i>` command
+ will display information when a key is pressed:</p>
+
+<pre>KeyPress event, serial 34, synthetic NO, window 0x1e00001,
+     root 0x13b, subw 0x0, time 16844797, (867,-539), root:(868,243),
+     state 0x0, 
+     <b>keycode 115 (keysym 0x0, NoSymbol)</b>  , same_screen YES,
+     XLookupString gives 0 bytes: 
+     XmbLookupString gives 0 bytes: 
+     XFilterEvent returns: False</pre>
+
+<p>If the state is set to <b>NoSymbol</b> then you can assign the key to Super_L by taking the keycode given (in this case 115)
+ and running the command:</p>
+<pre>    $ xmodmap -e 'keycode 115 = Super_L'</pre>
+
+<h2>Storing xmodmap expressions</h2>
+<pre>xmodmap expressions can be stored by adding the part between the single quotes to your <b>~/.Xmodmap</b> file.
+Be sure that you add the line in your <a href="Editing_the_startup_file,html">startup</a> file, or your ~/.xinitrc file
+       $ xmodmap ~/.Xmodmap
+so that the expressions are loaded at startup.</pre>
+</div>
+
+
+
+
+<hr><hr><hr><div style="width:720px; border:1px solid red; padding-left: 18px;">
+<pre>In case you encounter a 3rd-party utility called 'fluxkeys' which reputedly 'helps' build a keys file
+<b>BEWARE -- don't use it!</b>  The fluxkeys program (is outdated and) will corrupt your keys file.
+Notably, when fluxkeys saves your edited keyfile, it will:
+
+   change bindings to read 'Mousetop1' 'Mousetop2', etc.
+   (thereby disabling your ability to use your mouse properly)
+
+   remove any comments and blank lines from your keys file.
+
+   it may also (for unknown reasons) truncate the keys file.
+
+   Also, any command which the outdated fluxkeys doesn't recognize
+   (including keymodes, and custom menus) will be removed from your keys file.</pre></div>
+<hr><hr><hr>
+
+
+
+
+</div></body></html>

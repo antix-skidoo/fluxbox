@@ -1,0 +1,89 @@
+### NOTE:  use of rootCommand in a style has been obsolete since fluxbox v0.9.15 (2006!)
+###rootCommand:   bsetroot -gradient gradientflatdiagonal -from rgb:00/00/7f -to rgb:ff/ff/7f
+
+*font:                               helvetica
+
+window.frame.focusColor:    #ff5500
+window.frame.unfocusColor:  #00007f
+handleWidth:    3
+frameWidth: 0
+bevelWidth: 1
+borderWidth:    1
+borderColor:    #ff5500
+
+toolbar.button: raised bevel1 gradient crossdiagonal
+toolbar.button.color:   #ff5500
+toolbar.button.colorTo: #ffff00
+toolbar.button.picColor:    #00007f
+toolbar.button.pressed: sunken bevel1 gradient crossdiagonal
+toolbar.button.pressed.color:   #00007f
+toolbar.button.pressed.colorTo: #ffff00
+toolbar.label:  parentrelative
+toolbar.label.color:    #8f8fff
+toolbar.label.textColor:    #000000
+toolbar.windowLabel:    parentrelative
+toolbar.windowLabel.color:  #8f8f8ff
+toolbar.windowLabel.textColor:  #00007f
+toolbar.clock:  parentrelative
+toolbar.clock.color:    #ff5500
+toolbar.clock.textColor:    #000000
+toolbar:    parentrelative
+toolbar.color:  #ffff00
+toolbar.textColor:  #000000
+toolbar.justify:    Left
+
+menu.frame: Raised Bevel1 Gradient Diagonal
+menu.frame.color:   #ff5500
+menu.frame.colorTo: #ffff7f
+menu.frame.textColor:   #000000
+menu.frame.justify: left
+menu.title: Raised Bevel1 Gradient Diagonal Interlaced
+menu.title.color:   #00007f
+menu.title.colorTo: #ff00ff
+menu.title.textColor:   #ffff00
+menu.title.justify: center
+menu.hilite:    Sunken Bevel1 Gradient Diagonal
+menu.hilite.color:  #ff5500
+menu.hilite.colorTo:    #ffff7f
+menu.hilite.textColor:  #000000
+menu.bullet:    Triangle
+menu.bullet.position:   Right
+menu.frame.disableColor:    #ff00ff
+
+window.button.focus:    Raised Bevel1 Gradient CrossDiagonal
+window.button.focus.color:  #ff5500
+window.button.focus.colorTo:    #ffff7f
+window.button.focus.picColor:   #00007f
+window.button.unfocus:  Sunken Bevel1 Gradient CrossDiagonal
+window.button.unfocus.color:    #00007f
+window.button.unfocus.colorTo:  #ff00ff
+window.button.unfocus.picColor: #ffff00
+window.grip.focus:  Raised Bevel1 Gradient CrossDiagonal
+window.grip.focus.color:    #ff5500
+window.grip.focus.colorTo:  #ffff7f
+window.grip.unfocus:    Sunken Bevel1 Gradient Horizontal
+window.grip.unfocus.color:  #00007f
+window.grip.unfocus.colorTo:    #ff00ff
+window.handle.focus:    Flat Gradient Diagonal
+window.handle.focus.color:  #ff5500
+window.handle.focus.colorTo:    #ffff7f
+window.handle.unfocus:  Flat Gradient Diagonal
+window.handle.unfocus.color:    #00007f
+window.handle.unfocus.colorTo:  #ff00ff
+window.label.focus: parentrelative
+window.label.focus.color:   #6b8e23
+window.label.focus.textColor:   #000000
+window.label.focus.justify: center
+window.justify: center
+window.label.unfocus:   parentrelative
+window.label.unfocus.color: #6b8e23
+window.label.unfocus.textColor: #ffff00
+window.title.focus: Raised Bevel1 Gradient Diagonal
+window.title.focus.color:   #ff5500
+window.title.focus.colorTo: #ffff7f
+window.title.unfocus:   Sunken Bevel1 Gradient Diagonal Interlaced
+window.title.unfocus.color: #00007f
+window.title.unfocus.colorTo:   #ff007f
+window.button.pressed:  Sunken Bevel1 Gradient CrossDiagonal
+window.button.pressed.color:    #00007f
+window.button.pressed.colorTo:  #ffff7f

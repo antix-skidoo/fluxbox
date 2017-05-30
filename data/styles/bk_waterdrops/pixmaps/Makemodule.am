@@ -1,0 +1,36 @@
+bk_waterdrops_pixmaps_styledir = $(pkgdatadir)/styles/bk_waterdrops/pixmaps
+
+dist_bk_waterdrops_pixmaps_style_DATA = \
+		data/styles/bk_waterdrops/pixmaps/bullet.xpm \
+		data/styles/bk_waterdrops/pixmaps/closefcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/closepr.xpm \
+		data/styles/bk_waterdrops/pixmaps/closeufcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/frame.xpm \
+		data/styles/bk_waterdrops/pixmaps/gfx.xcf \
+		data/styles/bk_waterdrops/pixmaps/maxfcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/maxpr.xpm \
+		data/styles/bk_waterdrops/pixmaps/maxufcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/menuiconfcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/menuiconpr.xpm \
+		data/styles/bk_waterdrops/pixmaps/menuiconufcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/minfcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/minpr.xpm \
+		data/styles/bk_waterdrops/pixmaps/minufcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/selected.xpm \
+		data/styles/bk_waterdrops/pixmaps/shadefcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/shadepr.xpm \
+		data/styles/bk_waterdrops/pixmaps/shadeufcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/stickfcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/stickpr.xpm \
+		data/styles/bk_waterdrops/pixmaps/stickufcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/stuckfcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/stuckufcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/tbarfcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/tbarufcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/titlefcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/title.xcf \
+		data/styles/bk_waterdrops/pixmaps/toolbarfcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/unselected.xpm \
+		data/styles/bk_waterdrops/pixmaps/unshadefcs.xpm \
+		data/styles/bk_waterdrops/pixmaps/unshadepr.xpm \
+		data/styles/bk_waterdrops/pixmaps/unshadeufcs.xpm

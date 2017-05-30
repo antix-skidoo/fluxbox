@@ -1,0 +1,33 @@
+bk_wh_pur_pixmaps_styledir = $(pkgdatadir)/styles/bk_wh_pur/pixmaps
+
+dist_bk_wh_pur_pixmaps_style_DATA = \
+		data/styles/bk_wh_pur/pixmaps/bullet.xpm \
+		data/styles/bk_wh_pur/pixmaps/closefcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/closepr.xpm \
+		data/styles/bk_wh_pur/pixmaps/closeufcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/frame.xpm \
+		data/styles/bk_wh_pur/pixmaps/gfx.xcf \
+		data/styles/bk_wh_pur/pixmaps/maxfcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/maxpr.xpm \
+		data/styles/bk_wh_pur/pixmaps/maxufcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/menuiconfcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/menuiconpr.xpm \
+		data/styles/bk_wh_pur/pixmaps/menuiconufcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/minfcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/minpr.xpm \
+		data/styles/bk_wh_pur/pixmaps/minufcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/selected.xpm \
+		data/styles/bk_wh_pur/pixmaps/shadefcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/shadepr.xpm \
+		data/styles/bk_wh_pur/pixmaps/shadeufcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/stickfcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/stickpr.xpm \
+		data/styles/bk_wh_pur/pixmaps/stickufcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/stuckfcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/stuckufcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/tbarfcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/tbarufcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/unselected.xpm \
+		data/styles/bk_wh_pur/pixmaps/unshadefcs.xpm \
+		data/styles/bk_wh_pur/pixmaps/unshadepr.xpm \
+		data/styles/bk_wh_pur/pixmaps/unshadeufcs.xpm

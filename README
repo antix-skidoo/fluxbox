@@ -1,0 +1,12 @@
+Fluxbox is a windowmanager for X. It is light on resources yet full of features.
+Fluxbox sourcecode is distributed under an MIT license.
+Fluxbox was derived from the Blackbox v0.61.1 code.
+
+For copyright information, see COPYING.
+For more information, visit:    http://fluxbox.org/
+
+Read INSTALL to read about building and installing fluxbox.
+Read NEWS to see whats new in this release...
+...er, as of this writing, recent devnotes are not yet
+contained within one single file, so
+also refer to "debian/changelog" within the source tree

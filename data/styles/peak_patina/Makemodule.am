@@ -1,0 +1,3 @@
+peak_patina_styledir = $(pkgdatadir)/styles/peak_patina
+
+dist_peak_patina_style_DATA = data/styles/peak_patina/theme.cfg

@@ -1,0 +1,16 @@
+party_blue_pixmaps_styledir = $(pkgdatadir)/styles/party_blue/pixmaps
+
+dist_party_blue_pixmaps_style_DATA = \
+		data/styles/party_blue/pixmaps/close.xpm \
+		data/styles/party_blue/pixmaps/closeu.xpm \
+		data/styles/party_blue/pixmaps/icon.xpm \
+		data/styles/party_blue/pixmaps/iconu.xpm \
+		data/styles/party_blue/pixmaps/max.xpm \
+		data/styles/party_blue/pixmaps/maxu.xpm \
+		data/styles/party_blue/pixmaps/selected.xpm \
+		data/styles/party_blue/pixmaps/stick.xpm \
+		data/styles/party_blue/pixmaps/sticku.xpm \
+		data/styles/party_blue/pixmaps/stuck.xpm \
+		data/styles/party_blue/pixmaps/stucku.xpm \
+		data/styles/party_blue/pixmaps/wtitle.xpm \
+		data/styles/party_blue/pixmaps/wtitleu.xpm

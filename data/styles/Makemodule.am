@@ -1,0 +1,13 @@
+styledir = $(pkgdatadir)/styles
+
+style_DATA = \
+	data/styles/blue_night \
+	data/styles/debian_blue \
+	data/styles/nyz \
+	data/styles/outcomes \
+	data/styles/party_sunset \
+	data/styles/redsy_dark \
+	data/styles/twice \
+	data/styles/zuntu_dark
+
+EXTRA_DIST += $(style_DATA)

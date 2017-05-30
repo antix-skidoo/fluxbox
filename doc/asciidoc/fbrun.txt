@@ -1,0 +1,92 @@
+fbrun(1)
+========
+someone <someone@example.com>
+v1.3.8, 03 May 2017
+:man source:   fbrun.txt
+:man version:  {revision}
+:man manual:   Fluxbox Manual
+
+NAME
+----
+fbrun - displays a Run... dialogwindow (provided by "fluxbox" package)
+
+SYNOPSIS
+--------
+*fbrun* ['options']
+
+DESCRIPTION
+-----------
+*fbrun(1)* is analagous to the ``Run...'' dialog in other desktop environments.
+This means that it is an easy way to start a program which isn't contained
+in the menu (or to pass a specific set of parameters during a given invocation).
+
+Pressing ``Enter'' will close the window and execute the command in your present
+*$SHELL*. Pressing ``Esc'' will close the window and does not execute anything.
+
+Another fbrun usage is to call it from the menu with a preloaded  command line
+(which you can edit and then execute. An example: sshing to a very long host name
+with lots of options, each of which often requires changing.  In this case, you
+could add an entry for fbrun to your menu that contains all the options  and  the
+host name. When you use said entry, you could edit the line as necessary and execute it.
+
+OPTIONS
+-------
+*-title* 'title'::
+	Set title
+
+*-text* 'text'::
+	Text input
+
+*-w* 'width'::
+	Window width in pixels
+
+*-h* 'height'::
+	Window height in pixels
+
+*-display* 'display'::
+	Display name, defaults to *$DISPLAY*
+
+*-pos* 'x' 'y'::
+	Window position in pixels
+
+*-nearmouse*::
+	Position the window under the mouse cursor
+
+*-center*::
+	Position the window centered on the screen
+
+*-fg* 'color'::
+	Foreground text color. The default is *black*
+
+*-bg* 'color'::
+	Background color. The default is *white*
+
+*-font* 'name'::
+	Text font name
+
+*-hf* 'filename'::
+	History file to load. The default is *~/.fluxbox/fbrun_history*.
+
+*-cf* 'filename'::
+    Completion data to load. The default is empty. If no data can be loaded,
+    completion defaults to executables in $PATH
+
+*-preselect*::
+    Select the preset text given by the *-text* parameter
+
+*-autocomplete*::
+    Complete on typing. You can also set the FBRUN_AUTOCOMPLETE environment (to any value)
+
+*-help*::
+	Show this help
+
+EXAMPLE
+-------
+....
+fbrun -fg black -bg white -text xterm -title "run xterm"
+....
+
+
+SEE ALSO
+--------
+fluxbox(1)

@@ -1,0 +1,8 @@
+debian/system.fluxbox-menu		/etc/X11/fluxbox/
+debian/fluxbox.menu-user		/etc/X11/fluxbox/
+debian/fluxbox.desktop			/usr/share/xsessions/
+debian/www/manpage_fluxbox-keys_n_Keymodes.html                  /usr/share/doc/fluxbox/www/
+debian/www/manpage_fluxbox-style.html			/usr/share/doc/fluxbox/www/
+debian/www/manpage_fluxbox.html			/usr/share/doc/fluxbox/www/
+debian/www/manpage_fluxbox-menu.html			/usr/share/doc/fluxbox/www/
+debian/www/fbcommandslist.txt			/usr/share/doc/fluxbox/www/

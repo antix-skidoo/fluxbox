@@ -1,0 +1,3 @@
+gr_defcon2_styledir = $(pkgdatadir)/styles/gr_defcon2
+
+dist_gr_defcon2_style_DATA = data/styles/gr_defcon2/theme.cfg
