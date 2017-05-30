@@ -82,14 +82,6 @@
            rm ~/.fluxbox/init && rm ~/.fluxbox/keys && rm ~/.fluxbox/menu
            rm ~/.fluxbox/overlay && rm ~/.fluxbox/windowmenu
 
-           mv /etc/X11/fluxbox/system.fluxbox-menu  /etc/X11/fluxbox/system.fluxbox-menu_PRIOR
-           mv /etc/X11/fluxbox/fluxbox.menu-user  /etc/X11/fluxbox/fluxbox.menu-user_PRIOR
-           mv /etc/X11/fluxbox/init  /etc/X11/fluxbox/init_PRIOR
-
-           NOTE: DURING TESTING, FLUXBOX DEFAULT INIT IS PRECONFIGURE TO LOAD
-                 ~/.fluxbox/fluxbox-menu  RATHER THAN  ~/.fluxbox/menu
-                 YOU ARE FREE TO RENAME THE MENU FILE (AND EDIT INIT TO REFERENCE THE NEW NAME)
-
     4) Install the package by issuing the following command:
        sudo dpkg -i /path/to/working_dir/_name_of_the_new_fluxbox_debfile.deb
 
