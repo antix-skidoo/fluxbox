@@ -7,7 +7,7 @@
 # Exact filename in any subdir.
 .deps
 .dirstamp
-Makefile
+###Makefile
 ###Makefile.in
 
 # Exact wildcard, e.g., not in subdirs.
