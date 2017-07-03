@@ -1,3 +1,6 @@
+#this bothersome file
+.gitignore
+
 # Wildcard + in any subdir.
 *.o
 
@@ -5,37 +8,44 @@
 .deps
 .dirstamp
 Makefile
-Makefile.in
+###Makefile.in
 
 # Exact wildcard, e.g., not in subdirs.
 /doc/*.1
 /doc/*.5
 /doc/*/*.1
 /doc/*/*.5
-/nls/*/*.cat
-/nls/*/generated-*.m
-/m4/*.m4
+
+##### dammit, I have none (and perhaps should)
+###/nls/*/*.cat
+###/nls/*/generated-*.m
+
+###/m4/*.m4
 
 # Exact match, if a directory then everything in directory.
-/aclocal.m4
+###/aclocal.m4
 /autom4te.cache/
-/build-aux/
+###/build-aux/
 /config.h
-/config.h.in
+###/config.h.in
 /config.log
 /config.status
-/configure
+###/configure
+
 /data/apps
 /data/init
-/data/menu
+###/data/menu
+
 /fbrun
 /fbsetroot
 /fluxbox
 /fluxbox-remote
 /fluxbox-update_configs
 /libFbTk.a
+
 /src/defaults.cc
 /src/defaults.hh
+
 /stamp-h1
 /testDemandAttention
 /testFont
@@ -45,6 +55,8 @@ Makefile.in
 /testSignals
 /testStringUtil
 /testTexture
+
 /util/fluxbox-generate_menu
 /util/startfluxbox
-/version.h
+
+###/version.h

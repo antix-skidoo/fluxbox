@@ -34,20 +34,17 @@
        retrieve and install all the library packages needed to build fluxbox
        but
        you might find it quicker to just refer to the "debian/control" file in this source tree, and install
-       the packages listed therein (build-dep just retrieves/parses a control file from debian src repo)
+       the packages listed therein (build-dep just retrieves/parses a control file retrieved from debian src repo)
 
        Build-Depends: autoconf, automake, autotools-dev, bzip2, debhelper (>= 9),
         dh-autoreconf, libfribidi-dev, libgtk2.0-dev, libimlib2-dev, libtool,
-         libx11-dev, libxext-dev, libxft-dev, libxinerama-dev, libxpm-dev,
-         libxrandr-dev, libxt-dev
+         libx11-dev, libxext-dev, libxft-dev, libxinerama-dev, libxpm-dev, libxrandr-dev, libxt-dev
 
     3) cd into the top-level directory of the source tree
-       ./configure
        dpkg-buildpackage -j13 -b -d -us -uc -tc
 
        Yes, manually invoking "make" is absent from the process.
-       Yes, I'm advising "ignore the Now build fluxbox with `make` msg" displayed when configure exits.
-       The "dpkg-buildpackage" utility automates the chroot, make, and interim steps.
+       The "dpkg-buildpackage" utility automates the chroot, configure, make, and interim steps.
        Refer to its manpage to check which commandline options you might prefer (instead of those show here, above)
 
        Explanation of the dpkg-buildpackage commandline options, above:
@@ -81,6 +78,19 @@
        FOR TESTING, we want to ensure fluxbox uses "fresh, new version configfiles, so
            rm ~/.fluxbox/init && rm ~/.fluxbox/keys && rm ~/.fluxbox/menu
            rm ~/.fluxbox/overlay && rm ~/.fluxbox/windowmenu
+
+
+================
+THIS PORTION, DRAFTED EARLIER, IS CURRENTLY NOT NECESSARY
+           mv /etc/X11/fluxbox/system.fluxbox-menu  /etc/X11/fluxbox/system.fluxbox-menu_PRIOR
+           mv /etc/X11/fluxbox/fluxbox.menu-user  /etc/X11/fluxbox/fluxbox.menu-user_PRIOR
+           mv /etc/X11/fluxbox/init  /etc/X11/fluxbox/init_PRIOR
+
+           NOTE: DURING TESTING, FLUXBOX DEFAULT INIT IS PRECONFIGURED TO LOAD
+                 ~/.fluxbox/fluxbox-menu  RATHER THAN  ~/.fluxbox/menu
+                 YOU ARE FREE TO RENAME THE MENU FILE (AND EDIT INIT TO REFERENCE THE NEW NAME)
+================
+
 
     4) Install the package by issuing the following command:
        sudo dpkg -i /path/to/working_dir/_name_of_the_new_fluxbox_debfile.deb
