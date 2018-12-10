@@ -15,7 +15,7 @@
     repository and easily installed from a ".deb" package, this source tree includes
     a "debian" subdirectory containing dpkg rules and debian-specific install scripts.
     FOR antiX (AND OTHER DEBIAN -DERIVED DISTROS), BUILD+INSTALLATION BEGS USE OF
-    `dpkg-builddeb` RATHER THAN `configure...make...make install`
+    `dpkg-buildpackage` RATHER THAN `configure...make...make install`
     -=-
     In this source tree, which is intended for (tested with) antiX 16,
     various scripted operations of the debian/* installer/helpers have been outcommented.
@@ -43,25 +43,33 @@
     3) cd into the top-level directory of the source tree
        dpkg-buildpackage -j13 -b -d -us -uc -tc
 
+       NOTE: (observed when attempting to build under antiX 17.2)
+             building this package now fails unless sudo is used
+                   sudo dpkg-buildpackage -j13 -b -d -us -uc -tc
+             Apparently the implicit "fakeroot" helper mechanism employed by dpkg-buildpackage is not working,
+             or some squiggle within my debian/rules content (authored back in 2016) is now "deprecated".
+             
+
        Yes, manually invoking "make" is absent from the process.
        The "dpkg-buildpackage" utility automates the chroot, configure, make, and interim steps.
-       Refer to its manpage to check which commandline options you might prefer (instead of those show here, above)
+       Refer to the dpkg-buildpackage manpage to check which commandline options you might prefer (instead of those show here, above)
 
        Explanation of the dpkg-buildpackage commandline options, above:
-            instruct how compiler many concurrent thread to use
+            instruct how compiler many concurrent threads to use
                rule of thumb: number of CPU cores, x2 (if CPU is hyperthreading-capable), plus 1
-            just binaries, skip creating deb-src
-            skip checking dependencies   USE THIS ONLY AFTER FIRST SUCCESSFUL RUN
+            binaries only (skip creating deb-src)
+            skip checking dependencies   USE THIS DIRECTIVE ONLY AFTER FIRST SUCCESSFUL BUILD
             skip signing (src+pkg)
             "tellito cleanup" deb/rules dir afterward
 
        NOTE:
-        the dpkg-buildpackage cleanup overaggressively removes
-        ./build-aux/install-sh
-        SO (COMPILE FROM WITHIN A THROWAWAY WORKING DIRECTORY OR) HAVE A BACKUP
+        the dpkg-buildpackage cleanup step over-aggressively removes
+           ./build-aux/install-sh
+        SO (COMPILE FROM WITHIN A THROWAWAY WORKING DIRECTORY OR) ENSURE YOU HAVE A BACKUP COPY OF THE SOURCE FILES
 
        When dpkg-buildpackage has successfully completed (expect 2-3 minutes),
-       in the parent dir of the source directory you'll the debfile it created
+       the debfile it created will be located in the parent dir of the source directory.
+
 
 === BACKUP YOUR PRE-EXISTING FLUXBOX CONFIGS, AND INSTALL THE DEBFILE
 
@@ -69,12 +77,12 @@
     Installing this "fluxbox v1.3.8-ski" debfile to an existing antiX system necessitates some
     preparatory steps:
 
-    1) FOR TESTING (and in case you wish to rollback):
+    1) FOR TESTING (and in case you wish to rollback) prior to installing the newly-created fluxbgox package:
            sudo cp -R /usr/share/fluxbox /usr/share/fluxbox_bak
 
     2) cp ~/.fluxbox ~/.fluxbox_bak
 
-    3) By design, your existing "startup" file will be preserved.
+    3) By design, your existing "~/.fluxbox/startup" file will be preserved.
        FOR TESTING, we want to ensure fluxbox uses "fresh, new version configfiles, so
            rm ~/.fluxbox/init && rm ~/.fluxbox/keys && rm ~/.fluxbox/menu
            rm ~/.fluxbox/overlay && rm ~/.fluxbox/windowmenu
@@ -93,18 +101,27 @@ THIS PORTION, DRAFTED EARLIER, IS CURRENTLY NOT NECESSARY
 
 
     4) Install the package by issuing the following command:
-       sudo dpkg -i /path/to/working_dir/_name_of_the_new_fluxbox_debfile.deb
+       sudo dpkg -i /path/to/_name_of_the_new_fluxbox_debfile.deb
 
-    5) Start a new fluxbox session and check out the new menu entries (and newly-installed styles)
+    5) If a desktop session is currently running, logout/exit the session.
+       Start a new fluxbox session and inspect the new menu entries (and newly-installed styles)
 
-    Recommended followup: view the notes/tips within the newly-installed ~/.fluxbox/keys  file
+    Recommended followup: view the notes/tips within the freshly installed ~/.fluxbox/keys  file
 
-    NOTE: INSTALLING THIS DEBFILE DOES NOT UPDATE THE "SYSTEM-WIDE DEFAULT" /etc/fluxbox CONFIG FILES
-          (A NEWLY-CREATED USER ACCOUNT WILL RECEIVE "OLD VERSION" CONFIGFILES)
+    NOTE:          (mentioning this in order to preclude bug reports)
+          INSTALLING THIS DEBFILE DOES NOT UPDATE THE "SYSTEM-WIDE DEFAULT" /etc/fluxbox CONFIG FILES
+          These system-wide defaults, applied when a new user acccount is created,
+          are provided by a separate .deb package ("desktop-defaults-fluxbox").
+          
+          If/when a future antiX iso release preinstalls this new fluxbox version, the iso will also contain
+          an upgraded version of the separately-authored "desktop-defaults-fluxbox" package.
+
+          SO, UNDERSTAND THAT AFTER INSTALLING THE NEW "fluxbox" PACKAGE ONTO AN EXISTING SYSTEM,
+          A NEWLY-CREATED USER ACCOUNT WILL STILL RECEIVE "OLD VERSION" CONFIGFILES.
           The "other user(s)" scenario is beyond the current scope of testing.
-          However, if you decide to "create a new user account and test", you can expect
-          the new user does receive a "Menu" toolbar button, but some "new" items are (still) absent
-          from the RootMenu menu, "new" items are absent from windowmenu...
+          If you decide to "create a new user account and test", you can expect:
+          the new user does receive a "Menu" toolbar button, yet some "new" items are (still) absent
+          from the RootMenu menu, "new" items are absent from windowmenu.
 
 
 
