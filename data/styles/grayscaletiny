@@ -1,0 +1,56 @@
+---------------------------------------------
+ Style Name: grayscaletiny
+ Style Author: yermom
+ Style Date: 2019
+---------------------------------------------
+
+*font:					droid sans mono-8:normal
+*textColor:				#FFFFFF
+*disableColor:				#646464
+*justify:				left
+*title:					flat gradient
+
+
+menu.bullet:				square
+menu.bullet.position:			right
+
+menu.title.color:			#000000
+menu.title.colorTo:			#686868
+
+*hilite:				flat gradient horizontal
+*hilite.color:				#9a9a9a
+*hilite.colorTo:			#000000
+
+*frame:					flat gradient horizontal
+*frame.color:				#121212
+*frame.colorTo:				#444444
+
+toolbar:				flat
+toolbar.color:				#000000
+toolbar.colorTo:			#FFFFFF
+toolbar.height:				18
+toolbar.bevelWidth:			2
+toolbar.workspace.color:		#222222
+toolbar.clock.color:			#222222
+
+toolbar.iconbar.empty:			flat interlaced
+toolbar.iconbar.empty.color:		#343434
+toolbar.iconbar.empty.colorTo:		#000000
+
+toolbar.iconbar.focused:		sunken bevel1
+toolbar.iconbar.focused.color:		#343434
+toolbar.iconbar.focused.colorTo:	#FFFFFF
+
+toolbar.iconbar.unfocused:		raised bevel2
+toolbar.iconbar.unfocused.color:	#000000
+toolbar.iconbar.unfocused.colorTo:	#565656
+toolbar.iconbar.unfocused.font:		droid sans mono-8
+
+*focus:					flat
+*focus.color:				#686868
+*unfocus:				flat
+*unfocus.color:				#343434
+*handleWidth:				2
+window.borderWidth:			2
+window.shade:				true
+window.borderColor:			#000000
